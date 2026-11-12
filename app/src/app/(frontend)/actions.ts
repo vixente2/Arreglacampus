@@ -119,7 +119,7 @@ export async function createRequestAction(
 
   try {
     const payload = await getPayload({ config })
-    let imageID: string | undefined
+    let imageID: number | undefined
 
     if (image instanceof File && image.size > 0) {
       const allowedTypes = ['image/jpeg', 'image/png', 'image/webp']
