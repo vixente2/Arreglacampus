@@ -1,6 +1,7 @@
 import path from 'path'
 import { buildConfig } from 'payload'
-import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { mcpPlugin } from '@payloadcms/plugin-mcp'
 import { en as adminLanguage } from '@payloadcms/translations/languages/en'
@@ -18,7 +19,9 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || 'dev-secret-cambiar',
-  db: sqliteAdapter({ client: { url: process.env.DATABASE_URL || 'file:./campus.db' } }),
+  db: vercelPostgresAdapter({
+  pool: { connectionString: process.env.DATABASE_URL },
+}),
   editor: lexicalEditor(),
   admin: {
     user: Admins.slug,
@@ -47,5 +50,11 @@ export default buildConfig({
     fallback: true,
     defaultLocale: 'en',
   },
-  plugins: [mcpPlugin({})],
+ plugins: [mcpPlugin({})],
+  storage: [
+  vercelBlobStorage({
+    collections: { media: true, 'request-media': true },
+    token: process.env.BLOB_READ_WRITE_TOKEN,
+  }),
+],
 })
