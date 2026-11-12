@@ -11,11 +11,12 @@
     "generate:types": "payload generate:types"
   },
   "dependencies": {
-    "@payloadcms/db-sqlite": "4.0.0-beta.7",
+    "@payloadcms/db-vercel-postgres": "^4.0.0-beta.7",
     "@payloadcms/next": "4.0.0-beta.7",
     "@payloadcms/plugin-cloud-storage": "4.0.0-beta.7",
     "@payloadcms/plugin-mcp": "4.0.0-beta.7",
     "@payloadcms/richtext-lexical": "4.0.0-beta.7",
+    "@payloadcms/storage-vercel-blob": "^4.0.0-beta.7",
     "@payloadcms/translations": "4.0.0-beta.7",
     "@payloadcms/ui": "4.0.0-beta.7",
     "graphql": "^16.8.1",
