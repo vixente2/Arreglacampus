@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useActionState, useEffect, useId, useState, useTransition } from 'react'
+import { useActionState, useEffect, useId, useRef, useState, useTransition } from 'react'
 import {
   createRequestAction,
   loginAction,
@@ -301,6 +301,7 @@ function RequestForm({ onClose }: { onClose: () => void }) {
   const [state, formAction, pending] = useActionState(createRequestAction, initialState)
   const [preview, setPreview] = useState('')
   const [fileName, setFileName] = useState('')
+  const fileInput = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (state.success) {
@@ -376,47 +377,48 @@ function RequestForm({ onClose }: { onClose: () => void }) {
         </label>
       </div>
       <div className="image-field">
-        <span className="image-field-label">Añadir imagen (opcional)</span>
-        {preview ? (
-          <div className="image-preview">
-            <Image
-              src={preview}
-              alt="Vista previa de la incidencia"
-              width={88}
-              height={88}
-              unoptimized
-            />
-            <div>
-              <strong>{fileName}</strong>
-              <span>Imagen lista para adjuntar</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                setPreview('')
-                setFileName('')
-              }}
-            >
-              Eliminar
-            </button>
-          </div>
-        ) : (
-          <label className="image-uploader">
-            <UploadIcon />
-            <span>
-              <strong>Sube una foto del problema</strong>
-              <small>JPG, PNG o WEBP · Máximo 5 MB</small>
-            </span>
-            <span className="upload-action">Elegir imagen</span>
-            <input
-              name="image"
-              type="file"
-              accept="image/png,image/jpeg,image/webp"
-              onChange={(event) => previewFile(event.target.files?.[0])}
-            />
-          </label>
-        )}
+  <span className="image-field-label">Añadir imagen (opcional)</span>
+  {preview && (
+    <div className="image-preview">
+      <Image
+        src={preview}
+        alt="Vista previa de la incidencia"
+        width={88}
+        height={88}
+        unoptimized
+      />
+      <div>
+        <strong>{fileName}</strong>
+        <span>Imagen lista para adjuntar</span>
       </div>
+      <button
+        type="button"
+        onClick={() => {
+          setPreview('')
+          setFileName('')
+          if (fileInput.current) fileInput.current.value = ''
+        }}
+      >
+        Eliminar
+      </button>
+    </div>
+  )}
+  <label className="image-uploader" style={{ display: preview ? 'none' : undefined }}>
+    <UploadIcon />
+    <span>
+      <strong>Sube una foto del problema</strong>
+      <small>JPG, PNG o WEBP · Máximo 5 MB</small>
+    </span>
+    <span className="upload-action">Elegir imagen</span>
+    <input
+      ref={fileInput}
+      name="image"
+      type="file"
+      accept="image/png,image/jpeg,image/webp"
+      onChange={(event) => previewFile(event.target.files?.[0])}
+    />
+  </label>
+</div>
       <p className="form-message error-message" aria-live="polite">
         {state.message}
       </p>
