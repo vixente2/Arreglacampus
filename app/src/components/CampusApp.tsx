@@ -285,11 +285,6 @@ function AuthForm() {
               {mode === 'login' ? 'Crear cuenta' : 'Iniciar sesión'}
             </button>
           </p>
-          <aside className="demo-access" aria-label="Datos de acceso de demostración">
-            <strong>Cuenta de demostración</strong>
-            <span>demo@arreglacampus.es</span>
-            <span>CampusDemo2025!</span>
-          </aside>
         </div>
       </section>
     </main>
