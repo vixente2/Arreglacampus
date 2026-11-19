@@ -21,8 +21,8 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || 'dev-secret-cambiar',
   db: vercelPostgresAdapter({
-  pool: { connectionString: process.env.DATABASE_URL },
-}),
+    pool: { connectionString: process.env.DATABASE_URL },
+  }),
   editor: lexicalEditor(),
   admin: {
     user: Admins.slug,
@@ -38,9 +38,10 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
     components: {
+      afterNavLinks: ['./server/components/ReportsNavLink.tsx#ReportsNavLink'],
       views: {
         reports: {
-          Component: './server/components/ReportsView.server.tsx',
+          Component: './server/components/ReportsView.server.tsx#ReportsView',
           path: '/reports',
           exact: true,
           meta: {
@@ -64,11 +65,11 @@ export default buildConfig({
     fallback: true,
     defaultLocale: 'en',
   },
- plugins: [mcpPlugin({})],
+  plugins: [mcpPlugin({})],
   storage: [
-  vercelBlobStorage({
-    collections: { media: true, 'request-media': true },
-    token: process.env.BLOB_READ_WRITE_TOKEN,
-  }),
-],
+    vercelBlobStorage({
+      collections: { media: true, 'request-media': true },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+  ],
 })
