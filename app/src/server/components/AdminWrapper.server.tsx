@@ -33,6 +33,7 @@ export function AdminWrapper({
           color: #666;
           font-size: 0.95rem;
         }
-      `}</p>}</section>
+      `}</style>
+    </section>
   )
 }

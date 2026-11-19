@@ -13,7 +13,7 @@ export async function GET() {
     overrideAccess: true,
   })
 
-  const csvContent = exportRequestsToCSV(result.docs as any)
+  const csvContent = await exportRequestsToCSV(result.docs as any)
 
   return new Response(csvContent, {
     headers: {

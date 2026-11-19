@@ -1,5 +1,4 @@
-import { RenderServerComponent } from '@payloadcms/ui/elements/RenderServerComponent'
-import { Gutter } from '@payloadcms/ui/exports/client'
+
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { AdminWrapper } from './AdminWrapper.server'
@@ -119,16 +118,9 @@ export async function ReportsView(props: {
         <section className="reports-section">
           <div className="section-heading">
             <h3>Estado de solicitudes</h3>
-            <a
-              href="/api/admin/reports/export"
-              className="btn btn-download"
-              download
-              onClick={(e) => {
-                // El enlace manejará la descarga vía API
-              }}
-            >
-              📥 Descargar CSV
-            </a>
+            <a href="/api/admin/reports/export" className="btn btn-download" download>
+   Descargar CSV
+</a>
           </div>
 
           <div className="status-grid">
@@ -190,11 +182,8 @@ export async function ReportsView(props: {
             {requests.slice(0, 10).map((request) => (
               <div key={request.id} className="request-row-small">
                 <span className={`request-symbol ${request.category}`}>
-                  {Object.keys(categoryLabels).find((k) => categoryCounts[k] === request.category) ?
-                    Object.keys(categoryCounts).find((k) => requests.filter(r => r.category === k).length > 0 &&
-                    requests.find(r => r.id === request.id)?.category === k)?.substring(0, 2).toUpperCase() : '--'
-                  }
-                </span>
+  {request.category ? String(request.category).substring(0, 2).toUpperCase() : '--'}
+</span>
                 <div className="request-info">
                   <strong>{request.title}</strong>
                   <span>{request.location} · {new Date(request.createdAt).toLocaleDateString('es')}</span>
@@ -308,6 +297,7 @@ export async function ReportsView(props: {
           background: #f9f9f9;
           border-radius: 4px;
         }
-      `}</p>}</AdminWrapper>
+       `}</style>
+    </AdminWrapper>
   )
 }
