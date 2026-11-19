@@ -1,4 +1,3 @@
-
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { AdminWrapper } from './AdminWrapper.server'
@@ -195,7 +194,7 @@ export async function ReportsView(props: {
         </section>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .reports-dashboard {
           padding: 1rem;
         }
