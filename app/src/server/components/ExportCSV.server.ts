@@ -1,6 +1,6 @@
 'use server'
 
-export function exportRequestsToCSV(requests: Array<{
+export async function exportRequestsToCSV(requests: Array<{
   id: string | number
   title: string
   description: string
@@ -8,7 +8,7 @@ export function exportRequestsToCSV(requests: Array<{
   location: string
   status: string
   createdAt: string
-}>): string {
+}>): Promise<string> {
   const headers = ['ID', 'Título', 'Descripción', 'Categoría', 'Ubicación', 'Estado', 'Fecha']
   const rows = requests.map((r) => [
     String(r.id),
