@@ -27,6 +27,17 @@ export const Users: CollectionConfig = {
     hidden: true,
     useAsTitle: 'name',
   },
+  hooks: {
+  beforeValidate: [
+    ({ data }) => {
+      const email = typeof data?.email === 'string' ? data.email.toLowerCase().trim() : ''
+      if (email && !email.endsWith('@virginiogomez.cl')) {
+        throw new Error('Solo correos de @virginiogomez.cl están permitidos.')
+      }
+      return data
+    },
+  ],
+},
   fields: [
     {
       name: 'name',

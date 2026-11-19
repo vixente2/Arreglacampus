@@ -11,6 +11,12 @@ export type ActionState = {
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+const requiredDomain = '@virginiogomez.cl'
+
+function validateDomain(email: string): boolean {
+  return email.endsWith(requiredDomain)
+}
+
 function text(formData: FormData, name: string) {
   const value = formData.get(name)
   return typeof value === 'string' ? value.trim() : ''
@@ -26,6 +32,9 @@ export async function loginAction(
   if (!emailPattern.test(email) || !password) {
     return { success: false, message: 'Revisa tu correo y contraseña.' }
   }
+  if (!validateDomain(email)) {
+  return { success: false, message: 'Solo correos de @virginiogomez.cl están permitidos.' }
+}
 
   try {
     await appAuth.login(email, password)

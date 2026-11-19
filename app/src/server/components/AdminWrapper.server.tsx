@@ -16,7 +16,7 @@ export function AdminWrapper({
         <p className="section-description">{description}</p>
       </header>
       {children}
-      <style jsx>{`
+      <style>{`
         .admin-section {
           padding: 1.5rem 0;
         }
