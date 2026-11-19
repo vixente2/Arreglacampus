@@ -1,6 +1,6 @@
 'use server'
 
-export function exportRequestsToCSV(requests: Array<{
+export async function exportRequestsToCSV(requests: Array<{
   id: string | number
   title: string
   description: string
