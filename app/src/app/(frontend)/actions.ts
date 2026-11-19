@@ -33,8 +33,8 @@ export async function loginAction(
     return { success: false, message: 'Revisa tu correo y contraseña.' }
   }
   if (!validateDomain(email)) {
-  return { success: false, message: 'Solo correos de @virginiogomez.cl están permitidos.' }
-}
+    return { success: false, message: 'Solo correos de @virginiogomez.cl están permitidos.' }
+  }
 
   try {
     await appAuth.login(email, password)
@@ -60,6 +60,9 @@ export async function registerAction(
   }
   if (!emailPattern.test(email)) {
     return { success: false, message: 'Escribe un correo válido.' }
+  }
+  if (!validateDomain(email)) {
+    return { success: false, message: 'Solo correos de @virginiogomez.cl están permitidos.' }
   }
   if (password.length < 8) {
     return {

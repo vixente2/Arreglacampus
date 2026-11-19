@@ -2,10 +2,14 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { exportRequestsToCSV } from '@/server/components/ExportCSV.server'
 
-export async function GET() {
+export async function GET(request: Request) {
   const payload = await getPayload({ config })
 
-  // Obtener todas las solicitudes con acceso admin
+  const { user } = await payload.auth({ headers: request.headers })
+  if (!user || user.collection !== 'admins') {
+    return new Response('No autorizado', { status: 401 })
+  }
+
   const result = await payload.find({
     collection: 'requests',
     limit: 1000,

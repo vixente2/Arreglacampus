@@ -38,7 +38,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
-  ],
+, "src/server/components/ReportsView.server.tsx"  ],
   "exclude": [
     "node_modules"
   ]
