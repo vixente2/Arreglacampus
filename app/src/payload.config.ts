@@ -13,6 +13,7 @@ import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
 import { Requests } from './collections/Requests'
 import { RequestMedia } from './collections/RequestMedia'
+import { Reports } from './collections/Reports'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -36,12 +37,25 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      views: {
+        reports: {
+          Component: './server/components/ReportsView.server.tsx',
+          path: '/reports',
+          exact: true,
+          meta: {
+            title: 'Informes y Métricas',
+            description: 'Estadísticas de incidencias del campus',
+          },
+        },
+      },
+    },
   },
   i18n: {
     fallbackLanguage: 'en',
     supportedLanguages: { en: adminLanguage },
   },
-  collections: [Admins, Users, Requests, RequestMedia, Media, Folders, Tags],
+  collections: [Admins, Users, Requests, RequestMedia, Media, Folders, Tags, Reports],
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
